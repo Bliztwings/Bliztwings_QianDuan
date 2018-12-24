@@ -1,0 +1,42 @@
+{
+  "name": "nodeweb",
+  "version": "1.0.0",
+  "description": "web node",
+  "keywords": [
+    "node.js",
+    "javascript"
+  ],
+  "scripts": {
+    "start": "node app",
+    "debug": "node-debug app.js"
+  },
+  "author": "aichen",
+  "contributors": [
+    {
+      "name": "g.zhou",
+      "email": "g.zhou@hnair.com"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "latest",
+    "connect-redis": "^3.3.0",
+    "cookie-parser": "latest",
+    "domain": "0.0.1",
+    "express": "latest",
+    "express-session": "latest",
+    "hbs": "latest",
+    "ioredis": "^3.1.2",
+    "log4js": "^1.1.1",
+    "mockjs": "^1.0.1-beta3",
+    "moment": "^2.18.1",
+    "request": "^2.81.0",
+    "serve-favicon": "latest",
+    "sha1": "^1.1.1",
+    "underscore": "^1.8.3",
+    "wechat": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemailer": "^2.7.0"
+  }
+}

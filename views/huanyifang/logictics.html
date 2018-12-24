@@ -1,0 +1,31 @@
+{{css base.css}}<div class="myOrder_list order-detail-con"><p class="m15"></p><ul id="logictics"></ul></div><script id="logicticsdetial" type="text/html"><li class="order_item">
+        <div class="item_list_box p15">
+            <div class="item_list_box">订单编号：{%item.ordercode%}</div>
+            <div class="item_list_box">订单状态：<b style="color:#00dbf5;font-weight:normal">{%item.orderStatus%}</b></div>
+        </div>
+    </li>
+
+    <div class="item_list_box p15" style="padding-top:0">物流信息</div>
+    <li class="order_item">
+
+        <div class="myOrder_list order-detail-con">
+            <div class="order-logictics">
+                <span class="high-dottle"></span>
+                {% each item.list as b %}
+                <div style="padding-top:16px;">
+                    <span></span>
+                    <div class="split-position"></div>
+                    <div class="con-text" style="margin-top:0px;">
+                        <div class="split-position2"></div>
+                        <em style="font-size:14px;">{%b.content%}</em>
+                        <p class="date_d" style="">{%b.createTime%}</p>
+                        <div class="borderD"></div>
+                    </div>
+
+                </div>
+                {% /each %}
+            </div>
+        </div>
+
+        <div class="borderD"></div>
+    </li></script>{{js base.jsPageId}}

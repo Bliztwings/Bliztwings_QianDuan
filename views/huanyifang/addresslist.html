@@ -1,0 +1,31 @@
+{{css base.css}}<div class="p5"></div><div id="addr_wrap"><div id="all_address"></div></div><div id="confirm_win" style="display:none" class="cod"><div class="wx_mask"></div><div class="wx_confirm"><div class="wx_confirm_inner" style="padding:0;width:100%"><div class="wx_confirm_hd bigfont p30">确定删除吗？</div><input type="hidden" id="delete_id"><div class="borderD"></div><div class="wx_confirm_btns" style="position:relative"><button type="cancel" onclick="close_tip()">取消</button> <button type="submit" onclick="del_address()">确定</button><div class="borderL"></div></div></div></div></div><div id="delete_address_show" style="display:none" class="cod" style="height:60px"><div class="wx_confirm"><div class="wx_confirm_inner" id="wx_confirm_float"><div class="wx_confirm_hd"><div class="wx_confirm_tit" id="show_mes"></div></div></div></div></div><div class="fixed-bottom white-bg"><a href="/hyfnode/editplace"><div class="borderD2"></div><div class="choose-time"><img src="/hyfnode/static/image/icon_add.png"> <span class="am-button">添加地址</span></div></a></div><script id="addressitem" type="text/html"><div data-role="content">
+        <table class="order-place-table swipe-delete" cellpadding="0" cellspacing="0" data-role="listview">
+            {% each list as a %}
+            <tr id="address_list_{%a.id%}" class="address_list" data-name="{%a.customerName%}"
+                data-mobile="{%a.telephone%}" data-address="{%a.areaName%}{%a.homeAddress%}{%a.doorNumber%}">
+                <td style="width:20px;background:#fff"></td>
+                <td style="padding:0 0px">
+                    <div class="ui-btn ui-icon-carat-r edit-btn"
+                         data-link="/editplace">
+                        <div>
+                            <span ontouchstart="" class="bigf address_text">{%a.customerName%}</span>
+                            <span>{%a.telephone%}</span>
+                        </div>
+                        <p ontouchstart="" class="address_text p_address">{%a.areaName%} {%a.homeAddress%}
+                            {%a.doorNumber%}</p>
+                        <img src="/hyfnode/static/image/order_arrow.png"
+                             class="order_arrow">
+                    </div>
+                    <div class="behind" data-id="{%a.id%}">
+                        <a class="delete-btn ui-btn"> <img
+                                src="/hyfnode/static/image/address_delete.png"/></a>
+                    </div>
+                    <div class="borderD"></div>
+                </td>
+            </tr>
+            {% /each %}
+
+        </table>
+
+        <div style="height:90px;color:#8a8a8a;text-align:right;padding:14px">左划列表可删除地址</div>
+    </div></script>{{js base.jsPageId}}

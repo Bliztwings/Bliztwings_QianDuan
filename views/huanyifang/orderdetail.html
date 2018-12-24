@@ -1,0 +1,138 @@
+{{css base.css}}<div class="myOrder_list order-detail-con"><ul><li class="order_flow" id="orderflowimg"><img src="/hyfnode/static/image/orderflow1.png"></li><li class="order_item" id="orderinfo"></li><li class="order_item" id="orderflow"></li><li class="order_item" id="orderclothes"></li><li class="order_item" id="orderpay"></li><li class="order_item" id="orderaddress"></li></ul><div class="white_bg cancel_detail" id="orderbtn"></div><div id="codFloat" style="display:none;padding:1%" class="cod"><div class="wx_mask"></div><div class="codCancelOrder"><div class="wx_float"><div class="wx_confirm_hd white_bg" style="border-radius:4px"><br><div class="wx_confirm_tit">请选择订单取消原因</div><br><a class="cancel-order" href="javascript:void(0);" onclick='doCancel("不需要了")'>不需要了</a> <a class="cancel-order" href="javascript:void(0);" onclick='doCancel("需要更换上门时间")'>需要更换上门时间</a> <a class="cancel-order" href="javascript:void(0);" onclick='doCancel("小浣拒绝取件或态度恶劣")'>小浣拒绝取件或态度恶劣</a> <a class="cancel-order" href="javascript:void(0);" onclick='doCancel("价格因素")'>价格因素</a> <a class="cancel-order" href="javascript:void(0);" onclick='doCancel("其他原因")'>其他原因</a></div><p class="white_bg cancelBtn"><button type="cancel" onclick="closeCancel()">不想取消了</button></p></div><input type="hidden" id="orderid" name="orderid" value="8916700"></div></div><div id="complain_success" class="order_success" style="display:none;width:70%"><em><span></span></em> <span id="success_tip" style="padding-left:10px">投诉处理中</span><p class="complain_text p10">您的投诉我们已收到，正在处理中请耐心等待</p></div><div id="tip-box" style="display:none" class="cod" style="height:60px"><div class="wx_confirm"><div class="wx_confirm_inner" id="wx_confirm_float"><div class="wx_confirm_hd"><div class="wx_confirm_tit" id="show_mes"></div></div></div></div></div><div id="cod-cancel-pay" style="display:none"><div class="wx_mask"></div><div class="wx_confirm"><div class="wx_confirm_inner padding-top width100" id="wx_confirm_coupon"><div class="wx_confirm_hd"><div class="wx_confirm_tit blue-color">取消支付</div><div class="cot_content">取消支付后将重新选择支付方式</div><div class="floatBorder floatbox"><a id="exchange" class="single_input2" href="javascript:void(0);">不取消了</a> <a id="cancel-pay-true" class="cancel single_input2">确认取消</a></div><div class="clearBoth"></div></div></div></div></div><div id="cod-pay-warn" style="display:none"><div class="wx_mask"></div><div class="wx_confirm"><div class="wx_confirm_inner padding-top"><div class="wx_confirm_hd"><div class="cot_content" id="pay-content"></div><div class="floatBorder floatbox"><a id="confirm-pay-false" class="single_input2" href="javascript:void(0);">取消</a> <a id="confirm-pay-true" class="cancel single_input2">确认</a></div><div class="clearBoth"></div></div></div></div></div><div class="loader"><span class="mask"></span>加载中...</div><script id="orderbtn_tpl" type="text/html">{%if btnfast %}
+<button id="fast_btn" class="public_order order_blue " onclick="cuidan();">签收</button>
+<button id="complain_btn" class="public_order order_blue " onclick="complain();">评价</button>
+{% else if bthcanpay %}
+<a class="public_order bordergray" onclick="cancelOrder();">取消订单</a>
+<button id="gotopay_btn" class="public_order order_blue " onclick="gotopay();">支付</button>
+{% else if btnsign %}
+<button id="complain_btn" class="public_order order_blue " onclick="complain();">评价</button>
+{% else %}
+<a class="public_order bordergray" onclick="cancelOrder();">取消订单</a>
+<button id="complain_btn" class="public_order order_blue " onclick="complain();">评价</button>
+{% /if %}
+
+        <div class="clearBoth"></div></script><script id="orderinfo_tpl" type="text/html"><div class="item_list_box">
+            <div class="item_list_title">
+                <img src="/hyfnode/static/image/order_info.png">
+                订单信息
+            </div>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+        </div>
+        <div class="item_list_box item_list_con p5">
+            <div class="item_list_box">订单编号：<b class="blackFont">{%item.orderCode%}</b></div>
+
+            <div class="item_list_box">
+                <span>取件时间：<font id="qj-time-8916700">{%item.placeOrderDate%} {%item.placeOrderDateArea%}</font></span>
+
+                <p id="modify-8916700" class="modify_time" data-id="{%item.id%}">
+                    <img class="modify_img"
+                         src="/hyfnode/static/image/edit.png" alt=""/>修改
+                </p>
+            </div>
+            <div class="item_list_box">服务项目：{%item.serviceItem%}</div>
+            <!-- 是否为第三方预付款单 -->
+            <div id="remark-wrap-8916700" class="item_list_box">
+                备注信息：<font id="remark-8916700">{%item.leaveMessage%}</font>
+            </div>
+        </div>
+        <div class="borderD2"></div></script><script id="orderflow_tpl" type="text/html"><div class="item_list_box">
+            <div class="item_list_title">
+                <img src="/hyfnode/static/image/wuliu_info.png">
+                物流信息
+
+
+            </div>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+        </div>
+        <div class="order-logictics">
+            <span class="high-dottle"></span>
+            <a href="/hyfnode/logictics?orderid={%item.id%}">
+                <img src="/hyfnode/static/image/arrow-2.png"
+                     class="position-img">
+                <div class="con-text" style="padding-top:8px;">
+
+                    <div class="wuliu-left">
+                        <div class="split-position"></div>
+                        <em class="color097de7">{%item.logistics[item.logistics.length-1].content%}</em>
+                        <p class="color097de7 marginT">{%item.logistics[item.logistics.length-1].createTime%}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="borderD2"></div></script><script id="orderaddress_tpl" type="text/html"><div class="item_list_box">
+            <div class="item_list_title">
+                <img src="/hyfnode/static/image/address_info.png">
+                地址信息
+            </div>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+        </div>
+        <div class="item_list_box item_list_con p5">
+            <b class="blackFont">{%item.memberName%} </b>
+            <span class="pull-right"><b class="blackFont">{%item.telephone%}</b></span>
+            <div>{%item.orderAddress%}</div>
+        </div>
+        <div class="borderD2"></div></script><script id="orderclothes_tpl" type="text/html"><div class="item_list_box">
+            <div class="item_list_title">
+                <img src="/hyfnode/static/image/order_info.png">
+                物品信息
+            </div>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+        </div>
+        <div class="item_list_box p5">
+            <table>
+                <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>颜色</th>
+                    <th>瑕疵</th>
+                    <th>图片</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% each list as b %}
+                <tr>
+                    <td>{%b.clothesName%}</td>
+                    <td>{%b.color%}</td>
+                    <td>{%b.flaw%}</td>
+                    {% if b.hasPhoto=="1"%}
+                    <td>
+                        <ul class="viewer">
+                            {%each b.photoList as photo%}
+                            <li><img src="{%photo.photoPath%}" data-original="{%photo.photoPath%}" alt=""></li>
+                            {%/each%}
+                        </ul>
+                    </td>
+                    {% else %}
+                    <td>无图片</td>
+                    {%/if%}
+                </tr>
+                {% /each %}
+                </tbody>
+            </table>
+        </div>
+        <div class="borderD2"></div></script><script id="orderpay_tpl" type="text/html"><div class="item_list_box">
+            <div class="item_list_title">
+                <img src="/hyfnode/static/image/pay_info.png">
+                支付信息
+            </div>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+        </div>
+        <div class="item_list_box item_list_con p5">
+            <b class="blackFont" style="font-size: 0.9rem;">订单总价 </b>
+            <span class="pull-right"><b
+                    style="font-size: 0.9rem;color: deepskyblue;">{%info.receivableAmount%}</b>元</span>
+            <div></div>
+            <b class="blackFont">实付款 </b>
+            <span class="pull-right"><b class="blackFont">{%info.paidAmount%}</b>元</span>
+            <div class="borderD" style="margin-top:4px;margin-left:14px"></div>
+            <b class="blackFont">实付款费用清单 </b>
+            {% each list as b %}
+            <div></div>
+            <b class="blackFont">{%b.clothesName%} x {%b.clothesCount%}</b>
+            <span class="pull-right"><b class="blackFont">{%b.price%}</b>元</span>
+            {% /each %}
+            <div></div>
+            <b class="blackFont">运费</b>
+            <span class="pull-right"><b class="blackFont">{%info.freight%}</b>元</span>
+        </div>
+        <div class="borderD2"></div></script></div>{{js base.jsPageId}}

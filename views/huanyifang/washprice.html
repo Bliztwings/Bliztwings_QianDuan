@@ -1,0 +1,372 @@
+{{css base.css}}<header><div class="menu"></div></header><section id="category-content-part"><nav class="sub-menu-wrap"></nav><section class="taocan-wrap"></section><section class="prices-content-wrap"></section></section><section id="server-wrap"><div><img src="/hyfnode/static/image/server.png"><br><span>高效服务</span></div><div><img src="/hyfnode/static/image/baoxian.png"><br><span>每单投保</span></div><div><img src="/hyfnode/static/image/shangmen.png"><br><span>上门取件</span></div></section><section id="tips-wrap"><div class="tips-content"><div class="tips"><p>羽绒服、棉服等厚重衣物预计3-5天送回</p><p>皮衣、裘衣预计7-9天送回</p><p>点击查看<a href="javascript:void(0)" class="locationUrl">《浣衣坊清洗说明及不能提供清洗服务衣物列表》</a></p></div></div></section><article id="forecast-wrap"></article><footer><div class="order"><div class="order-btn">预约取件</div></div></footer><div class="loader"><span class="mask"></span>加载中...</div><div id="dialog"></div><script id="category-menu" type="text/html"><ul>
+        {%each data as item%}
+        {%if item.active%}
+        <li class="active" data-id="{%item.id%}" data-coupon_info="{%item.code%}">
+            {%item.title%}
+        </li>
+        {%else%}
+        <li data-id="{%item.id%}" data-coupon_info="{%item.code%}">{%item.title%}</li>
+        {%/if%}
+        {%/each%}
+    </ul></script><script id="category-submenu" type="text/html"><ul>
+        {%each data as item%}
+        {%if item.active%}
+        <li><span class="active" data-id="{%item.id%}" data-coupon_info="{%item.code%}">{%item.title%}</span></li>
+        {%else%}
+        <li><span data-id="{%item.id%}" data-coupon_info="{%item.code%}">{%item.title%}</span></li>
+        {%/if%}
+        {%/each%}
+    </ul></script><script id="banner_web" type="text/html">{%each data as item%}
+    {%if item.active && item.banners.length > 0%}
+    <div class="swipe-wrap">
+        {%each item.banners as bannerItem%}
+        <div>
+            {%if bannerItem.url_type === 'none'%}
+            <a href="javascript:void(0)" title="{%bannerItem.title%}"><img src="{%bannerItem.image_url%}"
+                                                                           class="banner"></a>
+            {%else%}
+            <a href="{%bannerItem.url%}" title="{%bannerItem.title%}"><img src="{%bannerItem.image_url%}"
+                                                                           class="banner"></a>
+            {%/if%}
+        </div>
+        {%/each%}
+    </div>
+    <div class="bgboxgo">
+        <div class="botton-box mBxCm" id="sbsd"></div>
+    </div>
+    {%/if%}
+    {%/each%}</script><script id="banner_app" type="text/html">{%each data as item%}
+    {%if item.active && item.banners.length > 0%}
+    <div class="swipe-wrap">
+        {%each item.banners as bannerItem%}
+        <div>
+            {%if (bannerItem.url_type === "none")%}
+            <a href="javascript:void(0)" title="{%bannerItem.title%}"><img src="{%bannerItem.image_url%}"
+                                                                           class="banner"></a>
+            {%/if%}
+            {%if (bannerItem.url_type === "web")%}
+            <a href="{%bannerItem.url%}" title="{%bannerItem.title%}"><img src="{%bannerItem.image_url%}"
+                                                                           class="banner"></a>
+            {%/if%}
+            {%if (bannerItem.url_type === "in_app")%}
+            <a href="javascript:void(0)" title="{%bannerItem.title%}"><img src="{%bannerItem.image_url%}"
+                                                                           data-category_id="{%item.category_id%}"
+                                                                           data-url="{%bannerItem.url%}"
+                                                                           class="banner banner_in_app"></a>
+            {%/if%}
+        </div>
+        {%/each%}
+    </div>
+    <div class="bgboxgo">
+        <div class="botton-box mBxCm" id="sbsd"></div>
+    </div>
+    {%/if%}
+    {%/each%}</script><script id="sub-menu" type="text/html">{%if types.length !== 1%}
+    <ul>
+        {%each types as item index%}
+        {%if item.active%}
+        <li><span class="active">{%item.type_name%}</span></li>
+        {%else%}
+        <li><span>{%item.type_name%}</span></li>
+        {%/if%}
+        {%/each%}
+    </ul>
+    {%/if%}</script><script id="price-content" type="text/html"><div class="price-content clearfix">
+        {%each clothes as item%}
+        {%if (!item.is_discount) %}
+        <div class="price-box" data-id="{%item.id%}">
+            <div class="pic-box">
+                <img src="{%item.imagePath%}" alt="{%item.dataName%}">
+            </div>
+            <div class="desp-box">
+                <p class="washing-name">{%item.dataName%}</p>
+                <p class="washing-prices">
+                    <span>￥</span>
+                    <span class="price">{%item.price%}</span>
+                </p>
+            </div>
+            <div class="buy-number"></div>
+        </div>
+        {%else%}
+        <div class="price-box" data-id="{%item.id%}">
+            <div class="pic-box">
+                <img src="{%item.imagePath%}" alt="{%item.dataName%}">
+            </div>
+            <div class="desp-box">
+                <p class="washing-name">{%item.dataName%}</p>
+                <p class="washing-prices">
+                                <span class="coupon-price">
+                                    <span>￥</span>
+                                    <span class="price">{%item.price%}</span>
+                                </span>
+                    <span class="origin-price">
+                                    ￥{%item.discount_info.original_price%}
+                                </span>
+                </p>
+                <p class="deadline">需在<span>{%item.discount_info.deadline_format%}</span>支付</p>
+            </div>
+            <img src="/hyfnode/static/image/tejia.png">
+            <div class="buy-number"></div>
+        </div>
+        {%/if%}
+        {%/each%}
+    </div></script><script id="bag-price" type="text/html"><div class="bag-content">
+        {%each clothes as item index%}
+        {%if (index === 1)%}
+        <hr/>
+        {%/if%}
+        <div class="bag-wrap">
+            {%if (item.is_discount)%}
+            <p style="position: absolute; width: 60px;"><img style="width: 100%" src="/hyfnode/static/image/tejia.png"></p>
+            {%/if%}
+            {%if (index === 0)%}
+            <div class="small-bag-img" data-category-id="1070" data-id="{%item.id%}">
+                {%else%}
+                <div class="big-bag-img" data-category-id="1070" data-id="{%item.id%}">
+                    {%/if%}
+                    <img src="{%item.image%}">
+                    {%if (index === 0)%}
+                    <p>33cm X 43cm</p>
+                    {%else%}
+                    <p>53cm X 63cm</p>
+                    {%/if%}
+                    <p>
+                        <span>￥</span><span class="price">{%item.price%}</span>/袋
+                        {%if (item.is_discount)%}
+                        <span>￥{%item.discount_info.original_price%}</span>
+                        {%/if%}
+                    </p>
+                    {%if (item.is_discount)%}
+                    <p class="deadline">需在<span>{%item.discount_info.deadline_format%}</span>支付</p>
+                    {%/if%}
+                    <div class="buy-number"></div>
+                </div>
+                <div class="vertical-line"></div>
+                {%if (index === 0)%}
+                <div class="message">
+                    <p><img src="/hyfnode/static/image/bag_able.png"><span>可入袋</span></p>
+                    <p>衬衫、裤子、羽绒服、<br>沙发套等多种衣物</p>
+                    <p><img src="/hyfnode/static/image/bag_unable.png"><span>不可入袋</span></p>
+                    <p>真丝类、真皮类、婚纱类<br>鞋靴类、箱包类</p>
+                </div>
+                {%else%}
+                <div class="message">
+                    <p><img src="/hyfnode/static/image/bag_able.png"><span>可入袋</span></p>
+                    <p>沙发套、窗帘</p>
+                    <p><img src="/hyfnode/static/image/bag_unable.png"><span>不可入袋</span></p>
+                    <p>除沙发套、窗帘外其它物品都不可入袋</p>
+                </div>
+                {%/if%}
+            </div>
+            {%/each%}
+            <table cellspacing="0">
+                <thead>
+                <tr>
+                    <th colspan="2">白袋子可以装些什么？</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>T恤</td>
+                    <td>最多可装<span>36</span>件</td>
+                </tr>
+                <tr>
+                    <td>衬衫</td>
+                    <td>最多可装<span>32</span>件</td>
+                </tr>
+                <tr>
+                    <td>西裤</td>
+                    <td>最多可装<span>15</span>件</td>
+                </tr>
+                <tr>
+                    <td>半身裙</td>
+                    <td>最多可装<span>18</span>件</td>
+                </tr>
+                <tr>
+                    <td>窗帘</td>
+                    <td>主窗帘最多可装<span>6~8</span>平米<br>纱窗帘最多可装<span>9~12</span>平米</td>
+                </tr>
+                <tr>
+                    <td>沙发套</td>
+                    <td>最多可装<span>4~5</span>平米，约<span>5~7</span>位</td>
+                </tr>
+                </tbody>
+            </table>
+            {%if (clothes.length == 2)%}
+            <table cellspacing="0">
+                <thead>
+                <tr>
+                    <th colspan="2">蓝袋子可以装些什么？</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>窗帘</td>
+                    <td>主窗帘最多可装<span>20~23</span>平米<br>纱窗帘最多可装<span>30~35</span>平米</td>
+                </tr>
+                <tr>
+                    <td>沙发套</td>
+                    <td>最多可装<span>13~15</span>平米，约<span>10~20</span>位</td>
+                </tr>
+                </tbody>
+            </table>
+            {%/if%}
+        </div></script><script id="taocan" type="text/html">{%each suit as item%}
+    <div class="taocan">
+        <div class="taocan-pic-box">
+            <div class="taocan-pic-cell" data-id="{%item.id%}">
+                <img src="{%item.image%}">
+                <p class="washing-name">{%item.clothes_name%}</p>
+                <p><span>￥</span><span class="price">{%item.price%}</span></p>
+                <p><span>￥</span><span>{%item.original_price%}</span></p>
+                <div class="buy-number"></div>
+            </div>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="message">
+            <div>
+                <p>套餐介绍：</p>
+                <p class="content">
+                    {%each item.suit_clothes as subitem index%}
+                    <span>{%subitem.title%} x {%subitem.count%}{%if (index + 1 < item.suit_clothes.length)%}、{%/if%}</span>
+                    {%/each%}
+                </p>
+                <p>
+                    {%each item.comments as comment%}
+                    <img src="/hyfnode/static/image/xian.png" class="limit">
+                    <span class="limit">{%comment%}</span>
+                    {%/each%}
+                </p>
+            </div>
+        </div>
+    </div>
+    {%/each%}</script><script id="curtain" type="text/html"><div class="curtain-content clearfix">
+        {%each types as item index%}
+        {%if item.type_name === "小窗帘"%}
+        <div class="small-bag" data-id="{%item.clothes[0].id%}">
+            {%else%}
+            <div class="big-bag" data-id="{%item.clothes[0].id%}">
+                {%/if%}
+                <img src="{%item.clothes[0].image%}">
+                <p class="washing-name">{%item.descriptions[0]%}</p>
+                <p><span>￥</span><span class="price">{%item.clothes[0].price%}</span>/袋</p>
+                {%if index==1 && city_id==1%}
+                <p>拆装窗帘每袋收取</p>
+                <p>{%item.clothes[0].price%}元拆装费</p>
+                {%else%}
+                <p>主窗帘可装{%item.descriptions[1]%}m²</p>
+                <p>纱窗帘可装{%item.descriptions[2]%}m²</p>
+                {%/if%}
+                <div class="buy-number"></div>
+            </div>
+            {%if index === 0%}
+            <div class="vertical-line"></div>
+            {%/if%}
+            {%/each%}
+            <table cellspacing="0">
+                <thead>
+                <tr>
+                    <th>备注说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>两室一厅的窗帘面积约为20m²左右</td>
+                </tr>
+                {%if city_id==1%}
+                <tr>
+                    <td>北京市六环内均可提供上门拆装服务，六环外区域服务范围以电话确认为准。</td>
+                </tr>
+                {%else%}
+                <tr>
+                    <td>用于别墅、会议室等场所的大型窗帘，暂时不提供服务。</td>
+                </tr>
+                <tr>
+                    <td>不含上门拆卸服务</td>
+                </tr>
+                {%/if%}
+                </tbody>
+            </table>
+        </div></script><script id="server" type="text/html"><div>
+        <img src="/hyfnode/static/image/server.png"><br/>
+        <span>高效服务</span>
+    </div>
+    <div>
+        <img src="/hyfnode/static/image/baoxian.png"><br/>
+        <span>每单投保</span>
+    </div>
+    <div>
+        <img src="/hyfnode/static/image/shangmen.png"><br/>
+        <span>上门取件</span>
+    </div></script><script id="tips" type="text/html"><div class="tips-content">
+        <div class="tips">
+            {%each tips as item%}
+            <p>{%item%}</p>
+            {%/each%}
+            <p>点击查看<a href="javascript:void(0)" class="locationUrl">《浣衣坊清洗说明及不能提供清洗服务衣物列表》</a></p>
+        </div>
+    </div></script><script id="order" type="text/html"><div class="order">
+        {%if coupon_info%}
+        <div class="coupon-info">
+            {%coupon_info%}
+            <img src="/hyfnode/static/image/huanjiao.png">
+        </div>
+        {%/if%}
+        <div class="order-btn">预约取件</div>
+    </div></script><script id="shopping-cart" type="text/html"><p>请等待小浣上门确认价格并付款</p>
+    <div class="shopping-cart-wrap">
+        <div class="shopping-cart">
+            <img src="/hyfnode/static/image/shopping-cart.png"/>
+            <img src="/hyfnode/static/image/shopping-cart-yuanhu.png"/>
+            <p>预估价格￥<span class="total-price">0.0</span></p>
+            <p>不含运费</p>
+        </div>
+        <div class="order-btn">预约取件</div>
+        <div class="buy-number-total"></div>
+    </div></script><script id="forecast" type="text/html"><div id="price-forecast">
+        <div class="head">
+            <span>清空</span>
+            <span>价格预估</span>
+            <span>关闭</span>
+        </div>
+        <div class="clothes-list">
+            <ul>
+                {%each washing as item%}
+                <li>
+                    {%if item.selected%}
+                    <div class="select checked" data-id="{%item.id%}"></div>
+                    {%else%}
+                    <div class="select unchecked" data-id="{%item.id%}"></div>
+                    {%/if%}
+                    <div class="content-wrap">
+                        <div class="content">
+                            <div class="pic-box">
+                                <img src="{%item.image%}">
+                            </div>
+                            <span class="clothes-name">{%item.washing_name%}</span>
+                            <span>￥</span>
+                            <span>{%item.price%}</span>
+                            <div class="add-subtract">
+                                <span data-id="{%item.id%}"><img src="/hyfnode/static/image/minus.png"></span>
+                                <span>{%item.order%}</span>
+                                <span data-id="{%item.id%}"><img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAATUlEQVR42u3SIQ4AIAxDUe6vwREcwcCJOMeChE7gJ0aCqPii5qmGMMVSRIKGbktWeN8IE/4U7mg7VxWWB/BSOD2AM19BmLADXNBCzQofqUvk3/Bm3rcAAAAASUVORK5CYII="></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {%/each%}
+            </ul>
+        </div>
+    </div>
+    <div id="mask"></div></script><script id="alert-dialog-wrap" type="text/html"><div id="alert-dialog" style="display: none;">
+        <div class="wx_mask"></div>
+        <div class="wx_confirm alert-dialog">
+            <div class="head">{%tips.title%}</div>
+            <div class="body">{%tips.content%}</div>
+            <div class="footer">
+                <div class="cancel">取消</div>
+                <div class="ok">确认</div>
+            </div>
+        </div>
+    </div></script>{{js base.jsPageId}}

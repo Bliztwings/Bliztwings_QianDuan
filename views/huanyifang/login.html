@@ -1,0 +1,57 @@
+{{css base.css}}
+<div class="loginbackground"></div>
+<div class="welcome-index" id="wx_mask">
+    <form action="javascript:void(0)" method="POST">
+        <table>
+            <tr>
+                <div class="borderD"></div>
+                <td width="65%"><label class="input_wrap" for="tel"><img src="/hyfnode/static/image/welcome_phone.png">
+                    <input name="tel" id="tel" type="text" maxlength="11" placeholder="请输入手机号"
+                           onkeyup='value=value.replace(/[^\d]/g,"")'
+                           onbeforepaste='clipboardData.setData("text",clipboardData.getData("text").replace(/[^\d]/g,""))'></label>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="input_wrap" for="code"><img src="/hyfnode/static/image/welcome_pas.png"> <input
+                        name="code" id="code" type="password" maxlength="20" placeholder="请输入您的密码"
+                        onkeyup='value=value.replace(/[^\da-zA-Z]/g,"")'
+                        onbeforepaste='clipboardData.setData("text",clipboardData.getData("text").replace(/[^\da-zA-Z]/g,""))'></label>
+                </td>
+            </tr>
+            <tr>
+                <td class="login_new">
+                    <button id="bind-btn" class="btn-public" style="opacity:.8">登录</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <p class="tip_info">没有账号， <a class="info_a" href="/hyfnode/regist">点此注册</a></p></div>
+<p class="tip_info">忘记密码， <a class="info_a" href="/hyfnode/findpassword">点此重置密码</a></p></div>
+<div id="tip-box" style="display:none" class="cod" style="height:60px">
+    <div class="wx_mask"></div>
+    <div class="wx_confirm">
+        <div class="wx_confirm_inner" id="wx_confirm_float">
+            <div class="wx_confirm_hd">
+                <div class="wx_confirm_tit" id="tip-mes">登录成功</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirm-tip" style="display:none" class="cod">
+    <div class="wx_mask"></div>
+    <div class="wx_confirm">
+        <div class="wx_confirm_inner">
+            <div class="wx_confirm_hd">
+                <div id="tip_div">亲~请确认是用本人手机号绑定奥~</div>
+            </div>
+            <div class="wx_confirm_bd">
+                <div class="wx_confirm_btn manage-btn">
+                    <button type="button" onclick="closeConfirmTip()" class="okbtn blue-btn">取消</button>
+                    <button type="button" onclick="confirmBinding()" class="okbtn orange-btn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" style="display:none"><span class="mask"></span>加载中...</div>
+<div id="add"></div>{{js base.jsPageId}}

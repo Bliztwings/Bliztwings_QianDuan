@@ -1,0 +1,74 @@
+{{css base.css}}<div class="main" style="padding-bottom:6rem"><section id="time_controler"></section><div class="borderDD"></div><section id="time_range"></section><section id="quota-info"></section><div class="fix-bottom"><button class="order-btn" id="order-btn">确定选择</button></div></div><script id="data-text" type="text/html"><ul class="time_date">
+        {%each data as t%}
+        <li class="detail_date {%if t.selected%}selected{%/if%}" id="date_li_{%t.date%}" serv_date="{%t.date%}"
+            date_text="{%t.date_str%}">
+            <p>
+                {%t.weekday%}
+            </p>
+            <p>{%t.date_str%}</p>
+            <em class="trigger-ico">
+                <img src="/hyfnode/static/image/trigger.png"/>
+            </em>
+
+        </li>
+        {%/each%}
+    </ul></script><script id="date-range" type="text/html">{%each data as r%}
+    <ul class="time_hour">
+        {%each r.service_times as ra%}
+        <li class="detail_hour {%if !ra.is_available || ra.is_passed%}baodan{%/if%} {%if ra.selected%}selected {%/if%}"
+            id="time_li_{%r.date%}_{%ra.text%}" serv_time="{%ra.text%}"
+            time_range="[{%ra.time_range[0]%},{%ra.time_range[1]%}]" quick_take="{%ra.quick_take%}"
+            time_text="{%r.date_str%}" date_ser="{%r.date%}" text="{%ra.text%}">
+            <div class="service_times_div">
+
+                {%if ra.quick_text%}
+                <p>{%ra.quick_text%}</p>
+                {%/if%}
+                {%if ra.view_text%}
+                <p class="view_text">{%ra.view_text%}</p>
+                {%/if%}
+
+                {%if ra.special_delivery_fee%}
+                <p>{%ra.special_delivery_fee%}</p>
+                {%/if%}
+
+                {%if !ra.is_available%}
+                <p>约满</p>
+                {%/if%}
+
+
+                <div class="borderCu"></div>
+            </div>
+
+            {%if ra.special_delivery_fee%}
+            <div id="special_delivery_fee" style="display:none;" class="cod special_delivery_fee">
+                <div class="wx_mask"></div>
+                <div class="wx_confirm">
+                    <img src="./images/tip.png">
+                    <div class="wx_confirm_inner">
+
+                        <p><span class="color-ff7c3c">{%ra.view_text%}</span>为特殊时段，如您需要此时段上门取件，需要额外支付<span
+                                class="color-ff7c3c">{%ra.special_delivery_fee%}</span>。特殊时段运费不参与满免运费活动。</p>
+
+                    </div>
+                    <div class="wx_confirm_btn manage-btn">
+                        <div class="borderR2"></div>
+                        <div class="borderT"></div>
+                        <button type="button" class="okbtn close-btn">取消</button>
+                        <button type="button" class="blue-btn sure-btn">同意增加运费</button>
+                    </div>
+                </div>
+
+            </div>
+            {%/if%}
+
+        </li>
+
+        {%/each%}
+
+    </ul>
+    {%/each%}</script><script type="text/html" id="quotainfo">{%each data_handled.quota_info as tex%}
+    <div class="quota_info">
+        {%tex%}
+    </div>
+    {%/each%}</script><div id="tip-box" style="display:none" class="cod2" style="height:60px"><div class="wx_confirm_tit2" id="show_mes"></div></div>{{js base.jsPageId}}

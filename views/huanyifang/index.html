@@ -1,0 +1,113 @@
+{{css base.css}}<div class="main">   <section id="slider" class="banner-list swipe">
+</section><div class="borderD"></div><section id="washing-category" class="cateroty-block"></section><div class="mb10"></div><div class="borderD"></div><section id="service-list"></section><div class="borderD"></div><section id="comments-list" class="comments-list swipe" style="display:none"></section><div class="mb10"></div><footer><div class="borderD3"></div><div class="bottomBox"><div class="indexMsg"><div class="indexMenu"><a href="/hyfnode/index"><span class="home-index active">首页</span></a> <a href="/hyfnode/order"><span class="Order-index">订单</span></a> <a href="/hyfnode/usercenter"><span class="card-index">我的</span></a></div></div></div></footer><div class="loader"><span class="mask"></span>加载中...</div><script id="content-text" type="text/html"><div class="swipe-wrap">
+            {% each banner as b %}
+            <div class="wrap goods_img">
+                <a href="javascript:void(0)" title="">
+                    <img src='{%b.image_url%}' alt="" class="banner-img" width="100%" data-banner-id="{%b.banner_id%}"
+                         data-banner-title="{%b.title%}" data-banner-link="{%b.url%}"/>
+                </a>
+            </div>
+            {% /each %}
+        </div>
+        <div class="bgboxgo" style="display: none">
+            <div class="botton-box mBxCm" id="sbsd"></div>
+        </div></script><script type="text/html" id="category_list">{%if washing.list.length > 0%}
+
+        <p class="p10 text-center title-sty"> — {%washing.title%} — </p>
+        <div class="borderS"></div>
+
+        <div class="div-block">
+
+            {%each washing.list as c%}
+            {%if !c.transverse%}
+            <div class="click-block" data-link="{%c.url%}">
+                {%if c.tips_name%}
+                <em class="trigger-icon"><b>{%c.tips_name%}</b></em>
+                {%/if%}
+                <p>{%c.title%}</p>
+                <a href="javascript:void(0)">
+                    <img src="{%c.image_url%}" alt="">
+
+                </a>
+            </div>
+
+            {%/if%}
+            {%/each%}
+
+        </div>
+
+        {%each washing.list as c%}
+        {%if c.transverse%}
+        <div class="borderD"></div>
+        <div class="height-space"></div>
+        <div class="bag-info click-block" data-link="{%c.url%}">
+
+            <a href="javascript:void(0)" title="">
+                <img src="{%c.image_url%}" alt="">
+
+                <p>
+                    {%c.description%}
+                    {%if c.tips_name%}
+                    <span class="hot-icon">HOT</span>
+                    {%/if%}
+                </p>
+
+            </a>
+        </div>
+
+        {%/if%}
+        {%/each%}
+        {%/if%}</script><script type="text/html" id="service_list"><div class="p10">
+
+        </div>
+        <div class="service-block">
+
+            {%each bottom_button as s%}
+
+            <div>
+                <a href="{%s.url%}" title="">
+
+                    <img src="{%s.image_url%}" alt="">
+                </a>
+                <p class="title-ff7c3c">{%s.title%}</p>
+            </div>
+            {%/each%}
+
+        </div>
+
+        </div>
+        <div class="borderD"></div>
+        <div class="mb10"></div></script><script type="text/html" id="comment_list">{%if favourable_comments%}
+        <div class="comment-block" id="comment-block">
+            {%each favourable_comments as co%}
+            <div class="box">
+
+                <div class="border-out">
+                    <div class="bg-con">
+
+                        <p class="text-center p10-top">{%co.user%} {%co.tel%}</p>
+                        <span class="quote quote-left">
+                                <img src="/hyfnode/static/image/front_quote.png"/>
+                            </span>
+                        <p class="comment-text p10">
+
+                            {%co.comment%}
+                        </p>
+                        <span class="quote  quote-right">
+                                <img src="/hyfnode/static/image/back_quote.png"/>
+                            </span>
+                        <p class="text-right p10-r">{%co.category%} {%co.date%}</p>
+
+                    </div>
+                </div>
+            </div>
+            {%/each%}
+
+        </div>
+        <div class="mb10"></div>
+
+        <p class="text-center"><a href="{%favourable_comments_url%}" title="" class="white-color">
+            [ 更多评价 ]</a>
+
+        </p>
+        {%/if%}</script></div>{{js base.jsPageId}}

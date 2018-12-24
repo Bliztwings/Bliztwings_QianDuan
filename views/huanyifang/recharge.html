@@ -1,0 +1,60 @@
+{{css base.css}}<div class="channel-nav"><ul><li class="active">在线充值</li></ul></div><div id="recharge_form"><div class="white-bg yue_block"><span>余额</span><span id="rechatgeblock" class="money"></span></div><div class="borderD"></div><div class="p10"></div><div class="p5"></div><div class="borderD"></div><div class="recharge-info" id="special_recharge"></div><div id="normal_recharge"></div><div class="p5"></div><div class="clear"></div><div class="p10"><div><input type="hidden" name="fee_2" id="selected-sum"> <input type="hidden" name="fee_3" id="selected-sum2"> <input class="charge_money input_sum" type="tel" name="fee" id="sum-input" placeholder="手动输入充值金额" maxlength="8" autocomplete="off" oninput='value=value.replace(/[^\d.]/g,"")'></div><input type="hidden" name="recharge_discount" id="recharge_discount"> <input type="hidden" name="recharge_callback" id="recharge_callback"> <button id="recharge_btn" class="chongzhi-btn" href="javascript:void(0)">立即充值</button></div></div><div clas從s="p5"></div><div class="p10"></div><div id="rechargeCheck"></div><div id="codFloat" style="display:none"></div><div class="loader"><span class="mask"></span>加载中...</div><script id="rechargebox" type="text/html">￥{%user_icard_amount%}</script><script id="recharge-special" type="text/html">{%each special_recharge as s%}
+    <div class="white-bg recharge-div" data-sum="{%s.min%}">
+        <div class="leftblock">
+            <span>充 </span>{%s.min%}元<span> 送 </span><b>{%s.display_money_give%}元</b>
+        </div>
+
+        <div class="borderL"></div>
+        <div class="rightblock">
+            {%s.description%}
+        </div>
+    </div>
+    <div class="height-space2"></div>
+    {%/each%}</script><script id="recharge-normal" type="text/html"><ul id="recharge-list" class="recharge-list">
+        {%each normal_recharge as nl%}
+        {%if normal_recharge.length == 1 || normal_recharge.length == 2 ||normal_recharge.length == 4 ||
+        normal_recharge.length == 7%}
+        <li class="moneyspan2 white-bg" data-sum="{%nl.min%}">
+                  <span class="">
+                    {%nl.min%}元
+                    <p class="givemoney">赠送：{%nl.display_money_give%}元</p>
+                  </span>
+
+
+        </li>
+        {%else%}
+
+        <li class="moneyspan white-bg" data-sum="{%nl.min%}">
+                  <span class="">
+                    {%nl.min%}元
+                    <p class="givemoney">赠送：{%nl.display_money_give%}元</p>
+                  </span>
+
+
+        </li>
+        {%/if%}
+        {%/each%}
+
+    </ul></script><script type="text/html" id="recharge-checkout-mobile"><div id="recharge-checkout-mobile2" style="display:none;" class="check-mobile">
+        <div class="wx_mask"></div>
+        <div class="wx_confirm2">
+
+            <div class="wx_confirm_inner">
+                <p style="color:#8a8a8a;padding: 1rem;font-size:1rem">{%tip%}</p>
+
+                <div class="logout-btn">
+
+                    <div class="borderT"></div>
+                    {%if can_recharge == true%}
+                    <div class="borderR2"></div>
+                    <button type="button" class="okbtn close-btn" id="close-btn">取消</button>
+                    <button type="button" class="blue-btn sure-btn" id="sure-btn2">确认</button>
+                    {%else%}
+                    <button type="button" class="blue-btn sure-btn" id="sure-btn">确认</button>
+                    {%/if%}
+
+                </div>
+            </div>
+        </div>
+
+    </div></script>{{js base.jsPageId}}

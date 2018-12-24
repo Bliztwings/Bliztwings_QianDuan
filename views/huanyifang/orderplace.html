@@ -1,0 +1,105 @@
+{{css base.css}}<script src="http://api.map.baidu.com/api?v=2.0&ak=6yAoynmTPNlTBa8z1X4LfwGE"></script><script src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script><header></header><section id="category-part"></section><section id="address-part"></section><section id="time-part"><div class="timeinput">请选择取件时间</div><div class="arrow-left"></div></section><section id="guest-part"><textarea placeholder="如果有问题请备注留言">
+        </textarea></section><section id="delivery-part"></section><footer><div>立即预约</div></footer><div class="loader"><span class="mask"></span>加载中...</div><section id="dialog"></section><script id="tips" type="text/html">{%if order_tips.details.length > 0%}
+    <div class="tips">
+        <img src="{%order_tips.background_image%}">
+        <div class="wrapline">
+            <div class="outter">
+                <div class="tablecell">
+                    {%each order_tips.details as item%}
+                    <span>{%item%}</span>
+                    {%/each%}
+                </div>
+            </div>
+        </div>
+    </div>
+    {%/if%}</script><script id="category-wrap" type="text/html"><div id="category-list">
+        <p>请选择您需要的服务</p>
+        <ul>
+            {%each categories as item%}
+            <li>
+                <a href="javascript:void(0)" data-id="{%item.serviceitem%}" class="{%item.active%} category-list-item">{%item.category_name%}</a>
+            </li>
+            {%/each%}
+        </ul>
+    </div></script><script id="address-wrap" type="text/html"><div id="address">
+        <div class="addborder"></div>
+        <div class="address-content">
+            {%if address.address !== "undefined undefined"%}
+            <p><span class="name">{%address.username%}</span><span class="tel">{%address.tel%}</span></p>
+            <p>{%address.address%}</p>
+            {%else%}
+            <p class="add-address">添加/选择地址</p>
+            {%/if%}
+            <div class="arrow-left"></div>
+        </div>
+        <div class="addborder"></div>
+    </div></script><script id="total-delivery-wrap" type="text/html">{%if total.length < 5%}
+    <div class="total-delivery clearfix">
+        <div class="title"><p>关于</p>
+            <p>运费</p></div>
+        {%each total as item index%}
+        <div class="delivery">
+            <p>{%item.sentinel_min%}</p>
+            <p class="blue">{%item.fee%}</p>
+        </div>
+        {%if index < total.length - 1%}
+        <div class="vertical-line"></div>
+        {%/if%}
+        {%/each%}
+    </div>
+    {%else%}
+    <div class="total-delivery five cleanfix">
+        <p>关于运费</p>
+        <ul>
+            {%each total as item%}
+            <li>
+                <div>
+                    <p>{%item.sentinel_min%}</p>
+                    <p class="blue">{%item.fee%}</p>
+                </div>
+            </li>
+            {%/each%}
+        </ul>
+    </div>
+    {%/if%}</script><script id="sub-delivery-wrap" type="text/html"><ul>
+        {%each sub as item%}
+        <li>
+            {%if item.delivery_fee.length <= 4%}
+            <div class="sub-delivery clearfix">
+                <div><p>{%item.category_name%}</p>
+                    <p>运费</p></div>
+                {%each item.delivery_fee as subitem index%}
+                <div>
+                    <p>{%subitem["sentinel_min"]%}</p>
+                    <p class="blue">{%subitem["fee"]%}</p>
+                </div>
+                {%if index < item.delivery_fee.length - 1 %}
+                <div class="vertical-line"></div>
+                {%/if%}
+                {%/each%}
+            </div>
+            {%else%}
+            <div class="sub-delivery-fiveitem">
+                <p>{%item.category_name%}运费</p>
+                <ul>
+                    {%each item.delivery_fee as subitem subindex%}
+                    <li>
+                        <div>
+                            <p>{%subitem["sentinel_min"]%}</p>
+                            <p class="blue">{%subitem["fee"]%}</p>
+                        </div>
+                    </li>
+                    {%/each%}
+                </ul>
+            </div>
+            {%/if%}
+        </li>
+        {%/each%}
+    </ul></script><script id="alert-dialog-wrap" type="text/html"><div id="alert-dialog" style="display: none;">
+        <div class="wx_mask"></div>
+        <div class="wx_confirm alert-dialog">
+            <div class="head">{%tips.title%}</div>
+            <div class="body">{%tips.content%}</div>
+            <div class="i-know-btn">我知道了</div>
+        </div>
+    </div></script>{{js base.jsPageId}}

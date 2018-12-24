@@ -1,0 +1,84 @@
+{{css base.css}}<div class="channel-nav three-nav"><ul><li><a href="/hyfnode/">订单列表</a></li><li class="finished"></li></ul><div class="borderD2"></div></div><div class="wapContent nologin" style="display:none"><div class="subwrap"><p>您还没有登录，请先登录！</p><p><a href="/hyfnode/login">登录</a></p></div></div><div class="myOrder" style="padding-bottom:60px"></div><footer id="footer"><div class="borderD3"></div><div class="fix-bottom"></div><div class="bottomBox"><div class="indexMsg"><div class="indexMenu"><a href="/hyfnode/index"><span class="home-index">首页</span></a> <a href="/hyfnode/order"><span class="Order-index-active">订单</span></a> <a href="/hyfnode/usercenter"><span class="card-index">我的</span></a></div></div></div></footer><div class="loader"><span class="mask"></span>加载中...</div><script type="text/html" id="orderlist">{%if list.length == 0%}
+    <!-- 无订单 -->
+    <div class="no-order text-center">
+        <p>您没有未完成的订单</p>
+    </div>
+    <div class="go-home-order text-center">
+        <div class="p10"></div>
+        <a href="/hyfnode/washprice">去下单</a>
+    </div>
+    {%/if%}
+    <!-- 我的订单 end -->
+    <!-- 有订单 -->
+    {%if list.length > 0%}
+    <ul id="order-list">
+        {% each list as order %}
+        <li>
+            <a href="/hyfnode/orderdetail?orderid={%order.id%}">
+                <div class="category_block">
+                    <!--洗衣-->
+                    {%if order.serviceitem=="2"%}
+                    <div class="category_cloth">
+                        <img src="/hyfnode/static/image/xi_shoes.png">
+                        洗鞋
+                    </div>
+                    {% else if order.serviceitem=="3"%}
+                    <div class="category_chuanglian">
+                        <img src="/hyfnode/static/image/chuanglian.png">
+                        家居家纺
+                    </div>
+                    {% else %}
+                    <div class="category_shoes">
+                        <img class="icon-washing"
+                             src="/hyfnode/static/image/xi_cloth.png"
+                             style="position:relative;">
+                        洗衣
+                    </div>
+                    {% /if %}
+                    <div class="order_status_div">
+                        <img name="12" src="/hyfnode/static/image/queren.png">
+                        <span class="text-info ">{%order.orderstate%}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <div class="borderD" style="border-color:#eee"></div>
+        <!-- Order title end -->
+
+        <!-- Order item start -->
+        <li class="order_item mobile-font">
+            <a href="javascript:void(0)">
+                <div class="order_box">
+
+                    <div class="item_list_box">订单编号：{%order.orderCode%}</div>
+                    <div class="item_list_box">
+                        <span>取件时间：<font id="qj-time-8916700">{%order.time%}</font></span>
+                        <p id="modify-{%order.id%}" class="modify_time" data-id="{%order.id%}"
+                        >
+                            <img class="modify_img"
+                                 src="/hyfnode/static/image/edit.png"
+                                 alt=""><span>修改</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <div class="clearBoth"></div>
+            {%if order.location.length > 0%}
+            <!-- Order button start -->
+            <div class="item_list_money navlist order_logictics" data-id="{%order.id%}">
+                <div class="borderD"></div>
+                <div class="item_list_box min-height">
+                    <div class="orderList">{%order.location[order.location.length-1].content%}</div>
+
+                </div>
+            </div>
+            <!-- Order button end -->
+            {%/if%}
+            <div class="clearBoth"></div>
+        </li>
+        {% /each %}
+        <!-- Order item end -->
+        <div id="prompt" style="text-align:center;line-height:40px;color:#999;"> 无更多订单</div>
+
+    </ul>
+    {%/if%}</script>{{js base.jsPageId}}
