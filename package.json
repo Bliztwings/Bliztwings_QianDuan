@@ -34,7 +34,8 @@
     "serve-favicon": "latest",
     "sha1": "^1.1.1",
     "underscore": "^1.8.3",
-    "wechat": "^2.1.0"
+    "wechat": "^2.1.0",
+    "weixin-pay": "^1.1.7"
   },
   "devDependencies": {
     "nodemailer": "^2.7.0"
