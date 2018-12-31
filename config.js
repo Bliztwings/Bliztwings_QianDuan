@@ -29,7 +29,7 @@ var developConfig = {
     },
 
     "o2ourl": "http://118.178.134.100:8080/ewashing/",
-    "imgurl": "http://ouanv8ds6.bkt.clouddn.com/ewashing/"
+    "imgurl": "http://image.sawyxd.com/ewashing/"
 
 }
 
