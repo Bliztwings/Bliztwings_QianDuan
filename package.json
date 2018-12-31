@@ -23,6 +23,7 @@
     "connect-redis": "^3.3.0",
     "cookie-parser": "latest",
     "domain": "0.0.1",
+    "eslint": "^5.11.1",
     "express": "latest",
     "express-session": "latest",
     "hbs": "latest",
